@@ -6,7 +6,8 @@ contract Sesame is AccessControl {
     uint public endDate;
     address public renter;
     // address[] lockKeeper;
-    bool public lock = true;    constructor(address payable _ownerAddress, uint _startDate, uint _endDate, uint _cost) public {
+    bool public lock = true;    
+    constructor(address payable _ownerAddress, uint _startDate, uint _endDate, uint _cost) public {
         ownerAddress = _ownerAddress;
         startDate = _startDate;
         endDate = _endDate;
@@ -30,7 +31,7 @@ contract Sesame is AccessControl {
         _;
     }
     
-    function changeLock() public onlyOwner() unexpired() {
+    function changeLock() public onlyRenter() unexpired() {
         lock = !lock;
     }
     
