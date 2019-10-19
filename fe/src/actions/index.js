@@ -86,6 +86,7 @@ export const getMyDoors = () => async (dispatch, getState) => {
   let myDoors = [];
   for (let i = 0; i < myDoorsAddress.length; i++) {
     let door = {
+      address: '',
       instance: null,
       lock: null,
       startDate: null,
@@ -97,6 +98,7 @@ export const getMyDoors = () => async (dispatch, getState) => {
       transactionConfirmationBlocks: 1
     });
 
+    door.address = myDoorsAddress[i];
     door.lock = await door.instance.methods.lock().call();
 
     let startDate = await door.instance.methods.startDate().call();
@@ -125,17 +127,20 @@ export const getAllDoors = () => async (dispatch, getState) => {
   let doors = [];
   for (let i = 0; i < doorsAddress.length; i++) {
     let door = {
+      address: '',
       instance: null,
       lock: null,
       startDate: null,
       endDate: null,
-      cost: 0
+      cost: 0,
+      renter: null
     };
 
     door.instance = new web3.eth.Contract(sesame.abi, doorsAddress[i], {
       transactionConfirmationBlocks: 1
     });
 
+    door.address = doorsAddress[i];
     door.lock = await door.instance.methods.lock().call();
 
     let startDate = await door.instance.methods.startDate().call();
@@ -146,6 +151,8 @@ export const getAllDoors = () => async (dispatch, getState) => {
 
     let cost = await door.instance.methods.cost().call();
     door.cost = cost.toNumber();
+
+    door.renter = await door.instance.methods.renter().call();
     doors.push(door);
   }
   dispatch({

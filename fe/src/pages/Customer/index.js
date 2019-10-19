@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import Room from '../../components/Rooms/Item';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import store from 'store';
+import * as actions from 'actions';
 
 class Customer extends Component {
   constructor(props) {
@@ -10,13 +14,25 @@ class Customer extends Component {
       { room: 'Room 3', status: false }
     ];
   }
+
+  async componentDidMount() {
+    if (!window.web3) return;
+    if (window.web3.currentProvider.isMetaMask) {
+      await store.dispatch(actions.web3Connect());
+    } else if (window.web3.currentProvider.isTomoWallet) {
+      await store.dispatch(actions.web3TomoWalletConnect());
+    }
+    await store.dispatch(actions.getMyDoors());
+    console.log(this.props.tomo.myDoors);
+  }
+
   render() {
     return (
       <div className='container'>
         <h1 className='text-white'>Danh Sách Cho Thuê</h1>
         <div className='row justify-content-md-center'>
-          {this.state.map(x => (
-            <Room item={x.room} status={x.status} />
+          {this.props.tomo.myDoors.map((x) => (
+            <Room item={x} />
           ))}
         </div>
       </div>
@@ -24,4 +40,10 @@ class Customer extends Component {
   }
 }
 
-export default Customer;
+const mapStateToProps = (state) => {
+  return {
+    tomo: state.tomo
+  };
+};
+
+export default compose(connect(mapStateToProps))(Customer);

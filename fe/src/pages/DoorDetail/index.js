@@ -25,10 +25,7 @@ class DoorDetail extends Component {
         <div className='row'>
           <div className='col-6'>
             <div className='card style-door' style={{ width: '18rem' }}>
-              <img
-                className='card-img-top'
-                src={require('assets/img/close.jpg')}
-              />
+              <img className='card-img-top' src={require('assets/img/close.jpg')} />
               <div className='card-body'>
                 <button className='btn btn-danger btn-block'>Close</button>
               </div>
@@ -36,10 +33,7 @@ class DoorDetail extends Component {
           </div>
           <div className='col-6'>
             <div className='card style-door' style={{ width: '18rem' }}>
-              <img
-                className='card-img-top'
-                src={require('assets/img/open.jpg')}
-              />
+              <img className='card-img-top' src={require('assets/img/open.jpg')} />
               <div className='card-body'>
                 <button className='btn btn-success btn-block'>Open</button>
               </div>
