@@ -7,14 +7,14 @@ import * as actions from 'actions';
 class Home extends Component {
   render() {
     const list = this.props.tomo.doors.filter(
-      (x) => x.renter === '0x0000000000000000000000000000000000000000'
+      x => x.renter === '0x0000000000000000000000000000000000000000'
     );
     return (
       <div className='container'>
-        <h1 className='text-white'>Danh Sách Cho Thuê</h1>
+        <h1 className='text-white font-xs-32'>Danh Sách Cho Thuê</h1>
         <div className='row justify-content-md-center'>
           {list.map((x, i) => (
-            <RoomHome item={x} key={i} />
+            <RoomHome item={x} key={i} index={i} />
           ))}
         </div>
       </div>
@@ -32,13 +32,13 @@ class Home extends Component {
   }
 }
 
-const mapStatetoProps = (state) => {
+const mapStatetoProps = state => {
   return {
     tomo: state.tomo
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     // dispatching plain actions
     instantiateContracts: () => dispatch({ type: 'instantiateContracts' })
