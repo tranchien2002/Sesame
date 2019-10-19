@@ -28,7 +28,6 @@ class DoorDetail extends Component {
               <img
                 className='card-img-top'
                 src={require('assets/img/close.jpg')}
-                alt='Card image cap'
               />
               <div className='card-body'>
                 <button className='btn btn-danger btn-block'>Close</button>
@@ -40,7 +39,6 @@ class DoorDetail extends Component {
               <img
                 className='card-img-top'
                 src={require('assets/img/open.jpg')}
-                alt='Card image cap'
               />
               <div className='card-body'>
                 <button className='btn btn-success btn-block'>Open</button>
