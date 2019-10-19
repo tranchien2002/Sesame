@@ -27,6 +27,10 @@ function App() {
               <span className='span-50' />
               <span className='span-100' />
             </div>
+            <Switch>
+              <Route exact path='/' component={Home} />
+              <Route path='/mydoor' component={Customer} />
+            </Switch>
             {/* SVG separator */}
             <div className='separator separator-bottom separator-skew zindex-100'>
               <svg
@@ -43,11 +47,6 @@ function App() {
                 />
               </svg>
             </div>
-            <Switch>
-              <Route exact path='/' component={Home} />
-              <Route path='/customer/:address' component={Customer} />
-              <Route path='/door/:id' component={DoorDeatil} />
-            </Switch>
           </section>
         </div>
       </div>

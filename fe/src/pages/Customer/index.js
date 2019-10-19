@@ -14,7 +14,7 @@ class Customer extends Component {
     return (
       <div className='container'>
         <h1 className='text-white'>Danh Sách Cho Thuê</h1>
-        <div className='row'>
+        <div className='row justify-content-md-center'>
           {this.state.map(x => (
             <Room item={x.room} status={x.status} />
           ))}
