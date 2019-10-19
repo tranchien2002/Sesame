@@ -5,7 +5,7 @@ const Item = props => {
     ? require('assets/img/close.jpg')
     : require('assets/img/open.jpg');
   return (
-    <div className='col-lg-3 col-md-3 col-xs-12 mb-2'>
+    <div className='col-lg-3 col-md-3 col-xs-12 mb-2 col-'>
       <div className='card'>
         <img
           className='card-img-top'

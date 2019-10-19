@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import Room from '../../components/Rooms/Item';
+import RoomHome from '../../components/RoomHome';
 
 class Home extends Component {
   render() {
     return (
       <div className='container'>
         <h1 className='text-white'>Danh Sách Cho Thuê</h1>
-        <div className='row'>
-          {[1, 2, 3].map(x => (
-            <Room item={x} />
+        <div className='row justify-content-md-center'>
+          {[1, 2, 3].map((x, i) => (
+            <RoomHome item={x} key={i} />
           ))}
         </div>
       </div>
