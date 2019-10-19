@@ -9,9 +9,21 @@ class Item extends Component {
     super(props);
   }
 
-  async changeLock() {
+  changeLock = async () => {
+    // const axios = require('axios');
+    // await axios.get('http://10.0.4.110:3000/door/' + this.props.item.address);
     await this.props.item.instance.methods.changeLock().send({ from: this.props.tomo.account });
-  }
+    let res = await fetch('http://10.0.4.110:3000/door/' + this.props.item.address, {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Credentials': true
+      }
+    });
+    await store.dispatch(actions.getMyDoors());
+  };
 
   render() {
     const door = this.props.item.lock
@@ -34,9 +46,13 @@ class Item extends Component {
             <div className='row'>
               <div className='col-12'>
                 {this.props.item.lock ? (
-                  <button className='btn btn-success'>Open</button>
+                  <button className='btn btn-success' onClick={this.changeLock}>
+                    Open
+                  </button>
                 ) : (
-                  <button className='btn btn-dark'>Close</button>
+                  <button className='btn btn-dark' onClick={this.changeLock}>
+                    Close
+                  </button>
                 )}
               </div>
             </div>
