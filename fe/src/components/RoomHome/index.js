@@ -16,13 +16,13 @@ class RoomHome extends Component {
             style={{ height: '200px' }}
           />
           <div className='card-body'>
-            <h5 className='card-title'>{this.props.item}</h5>
+            <h5 className='card-title'>Sale</h5>
             <p className='row'>
               <p className='card-text text-left col-6 col-sm-12'>
-                From: {common.timeConverter(1571470004)}
+                From: {common.timeConverter(this.props.item.startDate)}
               </p>
               <p className='card-text text-left col-6 col-sm-12'>
-                To: {common.timeConverter(1571478804)}
+                To: {common.timeConverter(this.props.item.endDate)}
               </p>
             </p>
 

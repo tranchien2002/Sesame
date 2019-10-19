@@ -3,6 +3,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import store from 'store';
 import * as actions from 'actions';
+import { common } from '../../helper/common_function';
 
 class Item extends Component {
   constructor(props) {
@@ -40,8 +41,13 @@ class Item extends Component {
           />
           <div className='card-body'>
             <h5 className='card-title'>room</h5>
-            <p className='card-text'>
-              {!this.props.item.lock ? 'Door is opening' : 'Door is closing'}
+            <p className='row'>
+              <p className='card-text text-left col-6 col-sm-12'>
+                From: {common.timeConverter(this.props.item.startDate)}
+              </p>
+              <p className='card-text text-left col-6 col-sm-12'>
+                To: {common.timeConverter(this.props.item.endDate)}
+              </p>
             </p>
             <div className='row'>
               <div className='col-12'>

@@ -14,7 +14,7 @@ class Home extends Component {
         <h1 className='text-white'>Danh Sách Cho Thuê</h1>
         <div className='row justify-content-md-center'>
           {list.map((x, i) => (
-            <Room item={x} key={i} />
+            <RoomHome item={x} key={i} />
           ))}
         </div>
       </div>

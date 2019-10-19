@@ -6,8 +6,7 @@ function timeConverter(unix_timestamp) {
   var month = date.getMonth();
   var day = date.getDate();
 
-  var formattedTime =
-    hours + ':' + minutes.substr(-2) + ' ' + day + '/' + month + '/' + year;
+  var formattedTime = hours + ':' + minutes.substr(-2) + ' - ' + day + '/' + month + '/' + year;
   return formattedTime;
 }
 
