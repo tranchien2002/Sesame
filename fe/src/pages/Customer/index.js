@@ -29,7 +29,7 @@ class Customer extends Component {
   render() {
     return (
       <div className='container'>
-        <h1 className='text-white'>Danh Sách Cho Thuê</h1>
+        <h1 className='text-white'>Phòng của bạn</h1>
         <div className='row justify-content-md-center'>
           {this.props.tomo.myDoors.map((x) => (
             <Room item={x} />

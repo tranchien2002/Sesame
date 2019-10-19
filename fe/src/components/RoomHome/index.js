@@ -1,10 +1,23 @@
 import React, { Component } from 'react';
 import { common } from '../../helper/common_function';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import store from 'store';
+import * as actions from 'actions';
 const door = require('assets/img/hs1.jpg');
+
 class RoomHome extends Component {
   constructor(props) {
     super(props);
   }
+
+  booking = async () => {
+    await this.props.tomo.factory.methods
+      .booking(this.props.item.address)
+      .send({ from: this.props.tomo.account, value: this.props.item.cost * 10 ** 18 });
+    await store.dispatch(actions.getAllDoors());
+  };
+
   render() {
     return (
       <div className='col-lg-3 col-md-3 col-xs-12 mb-2'>
@@ -28,7 +41,9 @@ class RoomHome extends Component {
 
             <div className='row'>
               <div className='col-12'>
-                <button className='btn btn-success'>Booking</button>
+                <button className='btn btn-success' onClick={this.booking}>
+                  Booking
+                </button>
               </div>
             </div>
           </div>
@@ -37,4 +52,9 @@ class RoomHome extends Component {
     );
   }
 }
-export default RoomHome;
+const mapStateToProps = (state) => {
+  return {
+    tomo: state.tomo
+  };
+};
+export default compose(connect(mapStateToProps))(RoomHome);
