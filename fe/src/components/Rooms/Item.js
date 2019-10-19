@@ -13,16 +13,21 @@ class Item extends Component {
   changeLock = async () => {
     // const axios = require('axios');
     // await axios.get('http://10.0.4.110:3000/door/' + this.props.item.address);
-    await this.props.item.instance.methods.changeLock().send({ from: this.props.tomo.account });
-    let res = await fetch('http://10.0.4.110:3000/door/' + this.props.item.address, {
-      method: 'GET',
-      credentials: 'include',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Credentials': true
+    await this.props.item.instance.methods
+      .changeLock()
+      .send({ from: this.props.tomo.account });
+    let res = await fetch(
+      'http://10.0.4.110:3000/door/' + this.props.item.address,
+      {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Credentials': true
+        }
       }
-    });
+    );
     await store.dispatch(actions.getMyDoors());
   };
 
@@ -31,32 +36,37 @@ class Item extends Component {
       ? require('assets/img/close.jpg')
       : require('assets/img/open.jpg');
     return (
-      <div className='col-lg-3 col-md-3 col-xs-12 mb-2'>
-        <div className='card'>
+      <div className='col-lg-3 col-md-3 col-xs-12 mb-5'>
+        <div className='card shadow-sm'>
           <img
-            className='card-img-top'
+            className='card-img-top img-door-xs height-200 mt-3'
             src={door}
             alt='Foo eating a sandwich.'
-            style={{ height: '200px' }}
           />
           <div className='card-body'>
             <h5 className='card-title'>room</h5>
-            <p className='row'>
-              <p className='card-text text-left col-6 col-sm-12'>
+            <div>
+              <p className='card-text text-md-left text-xs-center'>
                 From: {common.timeConverter(this.props.item.startDate)}
               </p>
-              <p className='card-text text-left col-6 col-sm-12'>
+              <p className='card-text text-md-left text-xs-center'>
                 To: {common.timeConverter(this.props.item.endDate)}
               </p>
-            </p>
-            <div className='row'>
+            </div>
+            <div className='row mt-3'>
               <div className='col-12'>
                 {this.props.item.lock ? (
-                  <button className='btn btn-success' onClick={this.changeLock}>
+                  <button
+                    className='btn btn-success btn-block'
+                    onClick={this.changeLock}
+                  >
                     Open
                   </button>
                 ) : (
-                  <button className='btn btn-dark' onClick={this.changeLock}>
+                  <button
+                    className='btn btn-dark btn-block'
+                    onClick={this.changeLock}
+                  >
                     Close
                   </button>
                 )}
@@ -68,7 +78,7 @@ class Item extends Component {
     );
   }
 }
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     tomo: state.tomo
   };

@@ -2,8 +2,8 @@ import React from 'react';
 import './App.css';
 import Home from './pages/Home';
 import Customer from './pages/Customer';
-import DoorDeatil from './pages/DoorDetail';
 import HeaderPage from './components/HeaderPage';
+import HeaderDoor from './components/HeaderDoor';
 
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
@@ -12,7 +12,10 @@ function App() {
     <BrowserRouter>
       <div className='App'>
         <div className='home'>
-          <HeaderPage />
+          <Switch>
+            <Route exact path='/' component={HeaderPage} />
+            <Route path='/mydoor' component={HeaderDoor} />
+          </Switch>
           <section className='section section-lg section-hero section-shaped'>
             {/* Background circles */}
             <div className='shape shape-style-1 shape-primary'>
