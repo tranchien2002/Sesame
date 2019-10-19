@@ -1,6 +1,5 @@
 import getWeb3 from '../utils/getWeb3';
 import Factory from '../contracts/Factory.json';
-import sesame from '../contracts/Sesame.json';
 require('dotenv').config();
 
 const networkId = '89';
@@ -10,7 +9,7 @@ export const web3Connect = () => async (dispatch) => {
   const web3 = await getWeb3();
   const accounts = await web3.eth.getAccounts();
   // if (web3.currentProvider.connection.networkVersion !== '3') {
-  if (web3.currentProvider.connection.networkVersion !== '89') {
+  if (web3.currentProvider.networkVersion !== '89') {
     alert('Unknown network, please change network to TomoChain network  ');
     console.log('test');
     return;
@@ -82,35 +81,7 @@ export const getMyDoors = () => async (dispatch, getState) => {
   let web3 = state.tomo.web3;
   const factory = state.tomo.factory;
   const account = state.tomo.account;
-  let myDoorsAddress = await factory.methods.getAllSesameOf(account).call({ from: account });
-  let myDoors = [];
-  for (let i = 0; i < myDoorsAddress.length; i++) {
-    let door = {
-      instance: null,
-      lock: null,
-      startDate: null,
-      endDate: null,
-      cost: 0
-    };
-
-    door.instance = new web3.eth.Contract(sesame.abi, myDoorsAddress[i], {
-      transactionConfirmationBlocks: 1
-    });
-
-    door.lock = await door.instance.methods.lock().call();
-
-    let startDate = await door.instance.methods.startDate().call();
-    door.startDate = startDate.toNumber();
-
-    let endDate = await door.instance.methods.endDate().call();
-    door.endDate = endDate.toNumber();
-
-    let cost = await door.instance.methods.cost().call();
-    door.cost = cost.toNumber();
-    myDoors.push(door);
-  }
-  dispatch({
-    type: GET_MY_DOORS,
-    myDoors
-  });
+  let myDoors = await factory.methods.getAllSesameOf(account).call({ from: account });
+  let doors = [];
+  console.log(myDoors);
 };

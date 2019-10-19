@@ -35,9 +35,25 @@ contract Sesame is AccessControl {
         lock = !lock;
     }
     
-    function booking() public emptyRoom() payable {
-        require(msg.value >= cost * 1 ether);
-        renter = msg.sender;
+    function booking(address _renter) public emptyRoom() payable {
+        renter = _renter;
     }
 
+    function getLock() view public returns (bool) {
+        return lock;
+    }
+
+    function getRenter() view public returns (address) {
+        return renter;
+    }
+
+    function getStartDate() view public returns (uint) {
+        return startDate;
+    }
+
+    function getEndDate() view public returns (uint) {
+        return endDate;
+    }
+
+    function() external payable {}
 }
