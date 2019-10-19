@@ -4,8 +4,7 @@ const initialState = {
   web3: null,
   account: null,
   balance: 0,
-  pets: null,
-  petsAddress: null,
+  myDoors: [],
   factory: null
 };
 
@@ -22,6 +21,12 @@ const tomoReducer = (state = initialState, action) => {
       return {
         ...state,
         factory: action.factory
+      };
+
+    case actions.GET_MY_DOORS:
+      return {
+        ...state,
+        myDoors: action.myDoors
       };
     default:
       return state;
