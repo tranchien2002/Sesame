@@ -1,6 +1,23 @@
 import React, { Component } from 'react';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import store from 'store';
+import * as actions from 'actions';
 
 class DoorDetail extends Component {
+  constructor() {
+    super();
+  }
+  async componentDidMount() {
+    if (!window.web3) return;
+    if (window.web3.currentProvider.isMetaMask) {
+      await store.dispatch(actions.web3Connect());
+    } else if (window.web3.currentProvider.isTomoWallet) {
+      await store.dispatch(actions.web3TomoWalletConnect());
+    }
+    await store.dispatch(actions.getAllDoors());
+    console.log(this.props.tomo.doors);
+  }
   render() {
     return (
       <div className='container'>
@@ -33,5 +50,10 @@ class DoorDetail extends Component {
     );
   }
 }
+const mapStateToProps = (state) => {
+  return {
+    tomo: state.tomo
+  };
+};
 
-export default DoorDetail;
+export default compose(connect(mapStateToProps))(DoorDetail);
