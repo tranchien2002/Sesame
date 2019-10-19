@@ -15,8 +15,8 @@ class DoorDetail extends Component {
     } else if (window.web3.currentProvider.isTomoWallet) {
       await store.dispatch(actions.web3TomoWalletConnect());
     }
-    await store.dispatch(actions.getMyDoors());
-    console.log(this.props.tomo.myDoors);
+    await store.dispatch(actions.getAllDoors());
+    console.log(this.props.tomo.doors);
   }
   render() {
     return (
