@@ -114,3 +114,42 @@ export const getMyDoors = () => async (dispatch, getState) => {
     myDoors
   });
 };
+
+export const GET_ALL_DOORS = 'GET_ALL_DOORS';
+export const getAllDoors = () => async (dispatch, getState) => {
+  const state = getState();
+  let web3 = state.tomo.web3;
+  const factory = state.tomo.factory;
+  const account = state.tomo.account;
+  let doorsAddress = await factory.methods.getAllSesames().call({ from: account });
+  let doors = [];
+  for (let i = 0; i < doorsAddress.length; i++) {
+    let door = {
+      instance: null,
+      lock: null,
+      startDate: null,
+      endDate: null,
+      cost: 0
+    };
+
+    door.instance = new web3.eth.Contract(sesame.abi, doorsAddress[i], {
+      transactionConfirmationBlocks: 1
+    });
+
+    door.lock = await door.instance.methods.lock().call();
+
+    let startDate = await door.instance.methods.startDate().call();
+    door.startDate = startDate.toNumber();
+
+    let endDate = await door.instance.methods.endDate().call();
+    door.endDate = endDate.toNumber();
+
+    let cost = await door.instance.methods.cost().call();
+    door.cost = cost.toNumber();
+    doors.push(door);
+  }
+  dispatch({
+    type: GET_ALL_DOORS,
+    doors
+  });
+};

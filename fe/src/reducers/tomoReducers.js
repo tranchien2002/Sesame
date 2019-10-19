@@ -5,6 +5,7 @@ const initialState = {
   account: null,
   balance: 0,
   myDoors: [],
+  doors: [],
   factory: null
 };
 
@@ -27,6 +28,12 @@ const tomoReducer = (state = initialState, action) => {
       return {
         ...state,
         myDoors: action.myDoors
+      };
+
+    case actions.GET_ALL_DOORS:
+      return {
+        ...state,
+        doors: action.doors
       };
     default:
       return state;
